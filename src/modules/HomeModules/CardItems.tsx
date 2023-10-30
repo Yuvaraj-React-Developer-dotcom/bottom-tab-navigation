@@ -3,7 +3,7 @@ import React from 'react';
 interface listItem {
   listItem: any;
 }
-const CardItems = ({listItem}) => {
+const CardItems: React.FC<listItem> = ({listItem}) => {
   console.log(listItem);
   return (
     <View style={styles.columnContainer}>

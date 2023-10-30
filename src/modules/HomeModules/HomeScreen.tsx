@@ -9,41 +9,8 @@ import {
 } from 'react-native';
 import React from 'react';
 import CardItems from './CardItems';
-
+import {departmentNames} from './mock';
 const HomeScreen = () => {
-  const departmentNames = [
-    'General care',
-    'Pediatrics',
-    'Cardiology',
-    'Oncology',
-    'Orthopedics',
-    'Neurology',
-    'Dermatology',
-    'Gynecology',
-    'Urology',
-    'ENT',
-    'Ophthalmology',
-    'Radiology',
-    'Psychiatry',
-    'Dentistry',
-    'Emergency Medicine',
-    'Anesthesiology',
-    'Surgery',
-    'Nephrology',
-    'Gastroenterology',
-    'Pulmonology',
-    'Endocrinology',
-    'Rheumatology',
-    'Hematology',
-    'Infectious Disease',
-    'Geriatrics',
-    'Physical Therapy',
-    'Occupational Therapy',
-    'Dietetics',
-    'Speech Therapy',
-    'Radiation Oncology',
-  ];
-
   const departmentItems = [];
 
   for (let i = 1; i <= 30; i++) {
@@ -60,8 +27,6 @@ const HomeScreen = () => {
       relatedImage: relatedImage,
     });
   }
-
-  console.log(departmentItems);
 
   return (
     <ScrollView>
@@ -156,7 +121,7 @@ const HomeScreen = () => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           renderItem={({item, index}) => <CardItems listItem={item} />}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.id.toString()}
         />
       </View>
     </ScrollView>
@@ -248,10 +213,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '33%',
     height: '100%',
-    // borderWidth: 0.5,
   },
   departmentContainer: {
-    // marginHorizontal: 20,
     backgroundColor: 'white',
     paddingVertical: 10,
     paddingHorizontal: 20,

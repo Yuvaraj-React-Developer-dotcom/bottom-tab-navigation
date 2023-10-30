@@ -5,13 +5,13 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Pressable,
   Image,
 } from 'react-native';
-import {Formik} from 'formik'; // Import Field and other components as needed
+import {Formik} from 'formik';
 import {useSelector} from 'react-redux';
 import * as Yup from 'yup';
-import SubmitButton from '../../common/SubmitButton';
+import CustomButton from '../../common/CustomButton';
+import LinearGradient from 'react-native-linear-gradient';
 
 interface Screen {
   navigation: any;
@@ -26,8 +26,6 @@ const LoginScreen: React.FC<Screen> = ({navigation}) => {
       };
     },
   );
-
-  console.log(data, 'satya asila');
 
   const navigateToIndex = (values: {email: string; password: string}) => {
     console.log(values, 'match login data');
@@ -109,22 +107,13 @@ const LoginScreen: React.FC<Screen> = ({navigation}) => {
               <Text style={styles.errorText}>{errors.password}</Text>
             )}
           </View>
-
-         
-            {/* <Pressable onPress={() => handleSubmit()}>
-              {({pressed}) => (
-                <Text
-                  style={{
-                    color: pressed ? 'white' : 'white',
-                    fontSize: 25,
-                    fontWeight: '400',
-                  }}>
-                  Login
-                </Text>
-              )}
-            </Pressable> */}
-            <SubmitButton handleSubmit={handleSubmit} value={0}/>
-
+          <LinearGradient
+            style={styles.linearButton}
+            colors={['#26b5b5', '#4eba83']}
+            start={{x: 0, y: 0.5}}
+            end={{x: 1, y: 0.5}}>
+            <CustomButton handleSubmit={handleSubmit} styleProps={false} />
+          </LinearGradient>
           <TouchableOpacity onPress={Gotoregistration}>
             <Text style={styles.loginLink}>
               New User? Go to <Text style={styles.link}>Register</Text>
@@ -140,6 +129,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    paddingHorizontal: 20,
   },
   centeredContainer: {
     marginTop: 30,
@@ -156,7 +146,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderColor: 'gray',
     marginBottom: 10,
-    width: '90%',
+    width: '100%',
     padding: 12,
     backgroundColor: '#f0f0f0',
   },
@@ -168,12 +158,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   acceptTermsText: {
-    marginLeft: 10,
     fontSize: 16,
   },
-  checkbox: {
-    marginRight: 10,
-  },
+
   buttonStyle: {
     padding: 10,
     borderRadius: 10,
@@ -209,6 +196,10 @@ const styles = StyleSheet.create({
   errorText: {
     color: 'red',
     fontSize: 16,
+  },
+  linearButton: {
+    borderRadius: 20,
+    marginTop: 20,
   },
 });
 

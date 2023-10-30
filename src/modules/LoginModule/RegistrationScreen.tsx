@@ -5,11 +5,9 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Pressable,
-  Alert,
   Image,
 } from 'react-native';
-import SubmitButton from '../../common/SubmitButton';
+import CustomButton from '../../common/CustomButton';
 import LinearGradient from 'react-native-linear-gradient';
 import {Formik} from 'formik';
 import {userregistrationdata} from './store/registrationMiddleware';
@@ -147,8 +145,13 @@ const RegistrationScreen: React.FC<Screen> = ({navigation}) => {
               <Text style={styles.errorText}>{errors.password}</Text>
             )}
           </View>
-
-          <SubmitButton handleSubmit={handleSubmit} value={1} />
+          <LinearGradient
+            style={styles.linearButton}
+            colors={['#26b5b5', '#4eba83']}
+            start={{x: 0, y: 0.5}}
+            end={{x: 1, y: 0.5}}>
+            <CustomButton handleSubmit={handleSubmit} styleProps={true} />
+          </LinearGradient>
           <TouchableOpacity onPress={Gotologin}>
             <Text style={styles.loginLink}>
               Already have an account? <Text style={styles.link}>Sign In</Text>
@@ -164,9 +167,9 @@ export default RegistrationScreen;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     height: '100%',
     backgroundColor: 'white',
+    paddingHorizontal: 20,
   },
   centeredContainer: {
     marginTop: 30,
@@ -183,23 +186,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderColor: 'gray',
     marginBottom: 10,
-    width: '90%',
+    width: '100%',
     padding: 12,
     backgroundColor: '#f0f0f0',
   },
-  acceptTermsContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 15,
-    justifyContent: 'center',
-    alignSelf: 'center',
-  },
   acceptTermsText: {
-    marginLeft: 10,
     fontSize: 16,
-  },
-  checkbox: {
-    marginRight: 10,
   },
   buttonStyle: {
     padding: 10,
@@ -247,5 +239,9 @@ const styles = StyleSheet.create({
   errorText: {
     color: 'red',
     fontSize: 16,
+  },
+  linearButton: {
+    borderRadius: 20,
+    marginTop: 20,
   },
 });
