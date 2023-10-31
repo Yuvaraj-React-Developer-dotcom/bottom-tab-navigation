@@ -20,7 +20,6 @@ interface Screen {
 }
 
 const LoginScreen: React.FC<Screen> = ({navigation}) => {
-  console.log(constants, 'find Color');
   const {data} = useSelector(
     ({userregistrationdata}: {userregistrationdata: any}) => {
       console.log(userregistrationdata?.registrationdata, 'show the data');
@@ -31,18 +30,12 @@ const LoginScreen: React.FC<Screen> = ({navigation}) => {
   );
 
   const navigateToIndex = (values: {email: string; password: string}) => {
-    console.log(values, 'match login data');
     const matchingUser = data.find((user: any) => user.email === values?.email);
 
     if (matchingUser) {
       if (matchingUser.password === values?.password) {
-        console.log('Login successful');
         navigation.navigate('BottomNavigation');
-      } else {
-        console.log('Invalid password');
       }
-    } else {
-      console.log('User not found');
     }
   };
 
@@ -124,11 +117,10 @@ const LoginScreen: React.FC<Screen> = ({navigation}) => {
               height={60}
             />
           </LinearGradient>
-          <Pressable onPress={Gotoregistration}>
-            <Text style={styles.loginLink}>
-              New User? Go to <Text style={styles.link}>Register</Text>
-            </Text>
-          </Pressable>
+
+          <Text style={styles.loginLink} onPress={Gotoregistration}>
+            New User? Go to Register
+          </Text>
         </View>
       )}
     </Formik>
@@ -190,7 +182,7 @@ const styles = StyleSheet.create({
   },
   loginLink: {
     marginTop: 80,
-    color: 'black',
+    color: '#26b5b5',
     fontSize: 16,
     fontWeight: '400',
     textAlign: 'center',

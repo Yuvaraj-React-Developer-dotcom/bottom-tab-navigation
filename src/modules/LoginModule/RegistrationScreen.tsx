@@ -38,8 +38,6 @@ const RegistrationScreen: React.FC<Screen> = ({navigation}) => {
       .then((response: any) => {
         if (response.payload) {
           navigation.navigate('Login');
-        } else {
-          console.log('Data set is not coming');
         }
       })
       .catch(error => {
@@ -160,11 +158,10 @@ const RegistrationScreen: React.FC<Screen> = ({navigation}) => {
               height={60}
             />
           </LinearGradient>
-          <Pressable onPress={Gotologin}>
-            <Text style={styles.loginLink}>
-              Already have an account? <Text style={styles.link}>Sign In</Text>
-            </Text>
-          </Pressable>
+
+          <Text style={styles.loginLink} onPress={Gotologin}>
+            Already have an account? Sign In
+          </Text>
         </View>
       )}
     </Formik>
@@ -231,7 +228,7 @@ const styles = StyleSheet.create({
   },
   loginLink: {
     marginTop: 40,
-    color: 'black',
+    color: '#26b5b5',
     fontSize: 16,
     fontWeight: '400',
     textAlign: 'center',
