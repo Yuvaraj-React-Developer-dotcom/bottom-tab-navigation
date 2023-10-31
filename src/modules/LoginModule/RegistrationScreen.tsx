@@ -4,8 +4,8 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
   Image,
+  Pressable,
 } from 'react-native';
 import CustomButton from '../../common/CustomButton';
 import LinearGradient from 'react-native-linear-gradient';
@@ -14,6 +14,7 @@ import {userregistrationdata} from './store/registrationMiddleware';
 import {AppDispatch} from '../../redux/store';
 import {useDispatch, useSelector} from 'react-redux';
 import * as Yup from 'yup';
+import constants from '../../utils/constants';
 
 interface Screen {
   navigation: any;
@@ -147,16 +148,23 @@ const RegistrationScreen: React.FC<Screen> = ({navigation}) => {
           </View>
           <LinearGradient
             style={styles.linearButton}
-            colors={['#26b5b5', '#4eba83']}
+            colors={[
+              `${constants.linearstartcolor}`,
+              `${constants.linearendcolor}`,
+            ]} //
             start={{x: 0, y: 0.5}}
             end={{x: 1, y: 0.5}}>
-            <CustomButton handleSubmit={handleSubmit} styleProps={true} />
+            <CustomButton
+              handleSubmit={handleSubmit}
+              styleProps={true}
+              height={60}
+            />
           </LinearGradient>
-          <TouchableOpacity onPress={Gotologin}>
+          <Pressable onPress={Gotologin}>
             <Text style={styles.loginLink}>
               Already have an account? <Text style={styles.link}>Sign In</Text>
             </Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       )}
     </Formik>

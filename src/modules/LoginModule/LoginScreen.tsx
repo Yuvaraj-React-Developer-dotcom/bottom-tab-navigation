@@ -6,18 +6,21 @@ import {
   TextInput,
   TouchableOpacity,
   Image,
+  Pressable,
 } from 'react-native';
 import {Formik} from 'formik';
 import {useSelector} from 'react-redux';
 import * as Yup from 'yup';
 import CustomButton from '../../common/CustomButton';
 import LinearGradient from 'react-native-linear-gradient';
+import constants from '../../utils/constants';
 
 interface Screen {
   navigation: any;
 }
 
 const LoginScreen: React.FC<Screen> = ({navigation}) => {
+  console.log(constants, 'find Color');
   const {data} = useSelector(
     ({userregistrationdata}: {userregistrationdata: any}) => {
       console.log(userregistrationdata?.registrationdata, 'show the data');
@@ -109,16 +112,23 @@ const LoginScreen: React.FC<Screen> = ({navigation}) => {
           </View>
           <LinearGradient
             style={styles.linearButton}
-            colors={['#26b5b5', '#4eba83']}
+            colors={[
+              `${constants.linearstartcolor}`,
+              `${constants.linearendcolor}`,
+            ]}
             start={{x: 0, y: 0.5}}
             end={{x: 1, y: 0.5}}>
-            <CustomButton handleSubmit={handleSubmit} styleProps={false} />
+            <CustomButton
+              handleSubmit={handleSubmit}
+              styleProps={false}
+              height={60}
+            />
           </LinearGradient>
-          <TouchableOpacity onPress={Gotoregistration}>
+          <Pressable onPress={Gotoregistration}>
             <Text style={styles.loginLink}>
               New User? Go to <Text style={styles.link}>Register</Text>
             </Text>
-          </TouchableOpacity>
+          </Pressable>
         </View>
       )}
     </Formik>
