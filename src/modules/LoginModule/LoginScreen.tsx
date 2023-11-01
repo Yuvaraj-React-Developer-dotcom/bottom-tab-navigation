@@ -22,7 +22,6 @@ interface Screen {
 const LoginScreen: React.FC<Screen> = ({navigation}) => {
   const {data} = useSelector(
     ({userregistrationdata}: {userregistrationdata: any}) => {
-      console.log(userregistrationdata?.registrationdata, 'show the data');
       return {
         data: userregistrationdata?.registrationdata,
       };
