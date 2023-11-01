@@ -5,13 +5,15 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  Pressable,
   Image,
+  Pressable,
 } from 'react-native';
-import {Formik} from 'formik'; // Import Field and other components as needed
+import {Formik} from 'formik';
 import {useSelector} from 'react-redux';
 import * as Yup from 'yup';
-import SubmitButton from '../../common/SubmitButton';
+import CustomButton from '../../common/CustomButton';
+import LinearGradient from 'react-native-linear-gradient';
+import constants from '../../utils/constants';
 
 interface Screen {
   navigation: any;
@@ -20,28 +22,19 @@ interface Screen {
 const LoginScreen: React.FC<Screen> = ({navigation}) => {
   const {data} = useSelector(
     ({userregistrationdata}: {userregistrationdata: any}) => {
-      console.log(userregistrationdata?.registrationdata, 'show the data');
       return {
         data: userregistrationdata?.registrationdata,
       };
     },
   );
 
-  console.log(data, 'satya asila');
-
   const navigateToIndex = (values: {email: string; password: string}) => {
-    console.log(values, 'match login data');
     const matchingUser = data.find((user: any) => user.email === values?.email);
 
     if (matchingUser) {
       if (matchingUser.password === values?.password) {
-        console.log('Login successful');
         navigation.navigate('BottomNavigation');
-      } else {
-        console.log('Invalid password');
       }
-    } else {
-      console.log('User not found');
     }
   };
 
@@ -109,27 +102,24 @@ const LoginScreen: React.FC<Screen> = ({navigation}) => {
               <Text style={styles.errorText}>{errors.password}</Text>
             )}
           </View>
+          <LinearGradient
+            style={styles.linearButton}
+            colors={[
+              `${constants.linearstartcolor}`,
+              `${constants.linearendcolor}`,
+            ]}
+            start={{x: 0, y: 0.5}}
+            end={{x: 1, y: 0.5}}>
+            <CustomButton
+              handleSubmit={handleSubmit}
+              styleProps={false}
+              height={60}
+            />
+          </LinearGradient>
 
-         
-            {/* <Pressable onPress={() => handleSubmit()}>
-              {({pressed}) => (
-                <Text
-                  style={{
-                    color: pressed ? 'white' : 'white',
-                    fontSize: 25,
-                    fontWeight: '400',
-                  }}>
-                  Login
-                </Text>
-              )}
-            </Pressable> */}
-            <SubmitButton handleSubmit={handleSubmit} value={0}/>
-
-          <TouchableOpacity onPress={Gotoregistration}>
-            <Text style={styles.loginLink}>
-              New User? Go to <Text style={styles.link}>Register</Text>
-            </Text>
-          </TouchableOpacity>
+          <Text style={styles.loginLink} onPress={Gotoregistration}>
+            New User? Go to Register
+          </Text>
         </View>
       )}
     </Formik>
@@ -140,6 +130,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
+    paddingHorizontal: 20,
   },
   centeredContainer: {
     marginTop: 30,
@@ -156,7 +147,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderColor: 'gray',
     marginBottom: 10,
-    width: '90%',
+    width: '100%',
     padding: 12,
     backgroundColor: '#f0f0f0',
   },
@@ -168,12 +159,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   acceptTermsText: {
-    marginLeft: 10,
     fontSize: 16,
   },
-  checkbox: {
-    marginRight: 10,
-  },
+
   buttonStyle: {
     padding: 10,
     borderRadius: 10,
@@ -193,7 +181,7 @@ const styles = StyleSheet.create({
   },
   loginLink: {
     marginTop: 80,
-    color: 'black',
+    color: '#26b5b5',
     fontSize: 16,
     fontWeight: '400',
     textAlign: 'center',
@@ -209,6 +197,10 @@ const styles = StyleSheet.create({
   errorText: {
     color: 'red',
     fontSize: 16,
+  },
+  linearButton: {
+    borderRadius: 20,
+    marginTop: 20,
   },
 });
 

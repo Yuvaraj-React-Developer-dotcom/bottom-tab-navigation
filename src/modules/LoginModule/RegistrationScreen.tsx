@@ -4,18 +4,17 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
-  Pressable,
-  Alert,
   Image,
+  Pressable,
 } from 'react-native';
-import SubmitButton from '../../common/SubmitButton';
+import CustomButton from '../../common/CustomButton';
 import LinearGradient from 'react-native-linear-gradient';
 import {Formik} from 'formik';
 import {userregistrationdata} from './store/registrationMiddleware';
 import {AppDispatch} from '../../redux/store';
 import {useDispatch, useSelector} from 'react-redux';
 import * as Yup from 'yup';
+import constants from '../../utils/constants';
 
 interface Screen {
   navigation: any;
@@ -39,8 +38,6 @@ const RegistrationScreen: React.FC<Screen> = ({navigation}) => {
       .then((response: any) => {
         if (response.payload) {
           navigation.navigate('Login');
-        } else {
-          console.log('Data set is not coming');
         }
       })
       .catch(error => {
@@ -147,13 +144,24 @@ const RegistrationScreen: React.FC<Screen> = ({navigation}) => {
               <Text style={styles.errorText}>{errors.password}</Text>
             )}
           </View>
+          <LinearGradient
+            style={styles.linearButton}
+            colors={[
+              `${constants.linearstartcolor}`,
+              `${constants.linearendcolor}`,
+            ]} //
+            start={{x: 0, y: 0.5}}
+            end={{x: 1, y: 0.5}}>
+            <CustomButton
+              handleSubmit={handleSubmit}
+              styleProps={true}
+              height={60}
+            />
+          </LinearGradient>
 
-          <SubmitButton handleSubmit={handleSubmit} value={1} />
-          <TouchableOpacity onPress={Gotologin}>
-            <Text style={styles.loginLink}>
-              Already have an account? <Text style={styles.link}>Sign In</Text>
-            </Text>
-          </TouchableOpacity>
+          <Text style={styles.loginLink} onPress={Gotologin}>
+            Already have an account? Sign In
+          </Text>
         </View>
       )}
     </Formik>
@@ -164,9 +172,9 @@ export default RegistrationScreen;
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     height: '100%',
     backgroundColor: 'white',
+    paddingHorizontal: 20,
   },
   centeredContainer: {
     marginTop: 30,
@@ -183,23 +191,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderColor: 'gray',
     marginBottom: 10,
-    width: '90%',
+    width: '100%',
     padding: 12,
     backgroundColor: '#f0f0f0',
   },
-  acceptTermsContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 15,
-    justifyContent: 'center',
-    alignSelf: 'center',
-  },
   acceptTermsText: {
-    marginLeft: 10,
     fontSize: 16,
-  },
-  checkbox: {
-    marginRight: 10,
   },
   buttonStyle: {
     padding: 10,
@@ -231,7 +228,7 @@ const styles = StyleSheet.create({
   },
   loginLink: {
     marginTop: 40,
-    color: 'black',
+    color: '#26b5b5',
     fontSize: 16,
     fontWeight: '400',
     textAlign: 'center',
@@ -247,5 +244,9 @@ const styles = StyleSheet.create({
   errorText: {
     color: 'red',
     fontSize: 16,
+  },
+  linearButton: {
+    borderRadius: 20,
+    marginTop: 20,
   },
 });
